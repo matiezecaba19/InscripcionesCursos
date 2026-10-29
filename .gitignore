@@ -6,6 +6,3 @@ obj/
 
 # la carpeta con el programa publicado, pesa mucho
 publicacion/
-
-# tiene la contraseña de la base, se sube conexion.ini.ejemplo en su lugar
-conexion/conexion.ini
