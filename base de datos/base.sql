@@ -1,11 +1,9 @@
 -- base de datos completa del proyecto inscripciones a cursos
--- tiene las tablas, la columna portada de cursos y todos los datos (usuarios demo incluidos)
--- las contraseñas de los usuarios estan guardadas encriptadas con BCrypt
+-- crea la base proyecto con todas las tablas y los datos (usuarios demo incluidos)
+-- y al final crea el usuario gestion_app que usa el programa
 --
--- como usarlo en otra pc:
---   1. abrir HeidiSQL con el usuario root
---   2. archivo > cargar archivo sql > elegir este base.sql > ejecutar (F9)
---   3. despues correr usuario.sql para crear el usuario gestion_app
+-- como usarlo: abrir HeidiSQL con root > archivo > cargar archivo sql > elegir este archivo > F9
+-- despues copiar conexion\conexion.ini.ejemplo como conexion\conexion.ini y listo, ya tienen la misma clave
 --
 -- si ya existe una base proyecto en esa pc, este archivo borra sus tablas y las vuelve a crear
 
@@ -486,3 +484,12 @@ USE `proyecto`;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
 -- Dump completed
+
+-- usuario del programa
+-- si ya existe no lo toca, asi no se rompe la conexion de una pc que ya lo tenia
+CREATE USER IF NOT EXISTS 'gestion_app'@'localhost' IDENTIFIED BY 'TU_CLAVE';
+
+-- solo puede leer y cambiar datos de la base proyecto, no puede borrar ni cambiar tablas
+GRANT SELECT, INSERT, UPDATE, DELETE, EXECUTE, SHOW VIEW ON proyecto.* TO 'gestion_app'@'localhost';
+
+FLUSH PRIVILEGES;
